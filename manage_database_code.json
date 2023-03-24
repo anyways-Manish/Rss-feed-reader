@@ -1,0 +1,448 @@
+[
+    {
+        "id": "f74e498bc7b3703b",
+        "type": "tab",
+        "label": "database-admin",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bf62a75f7f78db4c",
+        "type": "sqlite",
+        "z": "f74e498bc7b3703b",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "database",
+        "x": 520,
+        "y": 420,
+        "wires": [
+            [
+                "bdc17d74a8977a4a"
+            ]
+        ]
+    },
+    {
+        "id": "7f96b272a8863d41",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "CREATE  feed",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE IF NOT EXISTS feed (name , url)",
+        "payload": "table feed created",
+        "payloadType": "str",
+        "x": 210,
+        "y": 240,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "3d245ad417c23280"
+            ]
+        ]
+    },
+    {
+        "id": "9b10aef890bc550b",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "CREATE keyword",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE IF NOT EXISTS keyword (word)",
+        "payload": "table string created",
+        "payloadType": "str",
+        "x": 230,
+        "y": 280,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "3aae9faa4a846325"
+            ]
+        ]
+    },
+    {
+        "id": "02786057c38841b9",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "CREATE match",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE IF NOT EXISTS match (title , description , link , sent , UNIQUE(link))",
+        "payload": "table match created",
+        "payloadType": "str",
+        "x": 220,
+        "y": 320,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "24abf33b5859f558"
+            ]
+        ]
+    },
+    {
+        "id": "ed9b869e36275b49",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "DROP feed",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE IF EXISTS feed",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 460,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "7e681eebf7429adf"
+            ]
+        ]
+    },
+    {
+        "id": "cdc3cae197ab9b1b",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "DROP match",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE match",
+        "payload": "",
+        "payloadType": "date",
+        "x": 210,
+        "y": 500,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "87dabadcc2358a2b"
+            ]
+        ]
+    },
+    {
+        "id": "8e10f02a408afbdb",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "DROP keyword",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE keyword",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 540,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "88595aea203f4374"
+            ]
+        ]
+    },
+    {
+        "id": "3d245ad417c23280",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 25",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "685738d20a2399f9",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "CREATE contactdetail",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "CREATE TABLE details(name , mail)",
+        "payload": "table contact detail created",
+        "payloadType": "str",
+        "x": 240,
+        "y": 200,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "7ae37bae8cd8bcb2"
+            ]
+        ]
+    },
+    {
+        "id": "7ae37bae8cd8bcb2",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 27",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "3aae9faa4a846325",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 28",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "24abf33b5859f558",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 29",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "7e681eebf7429adf",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 30",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 600,
+        "wires": []
+    },
+    {
+        "id": "87dabadcc2358a2b",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 31",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "88595aea203f4374",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 32",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "3e6b894d15f31bc9",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 33",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "edfc2534677203a3",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "DROP contactdetail",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DROP TABLE details",
+        "payload": "",
+        "payloadType": "date",
+        "x": 230,
+        "y": 580,
+        "wires": [
+            [
+                "bf62a75f7f78db4c",
+                "3e6b894d15f31bc9"
+            ]
+        ]
+    },
+    {
+        "id": "18ab9fb70bc8b690",
+        "type": "inject",
+        "z": "f74e498bc7b3703b",
+        "name": "DELETE RECORDS of match ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "DELETE FROM match",
+        "payload": "",
+        "payloadType": "date",
+        "x": 220,
+        "y": 620,
+        "wires": [
+            [
+                "bf62a75f7f78db4c"
+            ]
+        ]
+    },
+    {
+        "id": "bdc17d74a8977a4a",
+        "type": "debug",
+        "z": "f74e498bc7b3703b",
+        "name": "debug 255",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "a02a3e29708d076d",
+        "type": "sqlitedb",
+        "db": "D:\\database\\db.sqlite",
+        "mode": "RWC"
+    }
+]

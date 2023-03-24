@@ -1,0 +1,949 @@
+[
+    {
+        "id": "e8883f0bf475059e",
+        "type": "tab",
+        "label": "databse ui",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "39dc1741e0e8784b",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/feed",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 130,
+        "y": 100,
+        "wires": [
+            [
+                "e4f4133a48bfa8b1"
+            ]
+        ]
+    },
+    {
+        "id": "07b0141836499e46",
+        "type": "http response",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 810,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "5a6d2861f0d54c10",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/slate/bootstrap.min.css\" integrity=\"sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ\" crossorigin=\"anonymous\">\n    <title>firstnoderedsite</title>\n   <style>\n     body{\n     padding: 10px;}\n     .link{\n     padding :20px;\n     }\n     .container .table td{\n   background-color: #6B6E70;\n   }\n\n   </style>\n</head>\n<body>\n    <div class=\"container\">\n     <h1>FEEDS</h1>\n    <p>getting started with node RED</p>\n    <div class=\"link\">\n    <a href=\"/database/details/\"><button type=\"button\" class=\"btn btn-info\" fdprocessedid=\"dm257\">Contact Details</button></a>  \n    <a href=\"/database/keyword/\"><button type=\"button\" class=\"btn btn-warning\" fdprocessedid=\"fzsmzg\">Keywords</button></a>  \n    <a href=\"/database/monitor/\"><button type=\"button\" class=\"btn btn-success\" fdprocessedid=\"wm50t\">Latest stories</button></a>  \n    </div>  \n   <div class=\"row\">\n     <div class=\"col-md-6\">\n        <table class=\"table table-hover\">\n  <thead>\n    <tr>\n      <th scope=\"col\">NAME</th>\n      <th scope=\"col\">URL</th>\n      <th scope=\"col\">DELETE</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#payload}}\n    <tr>\n      <td scope=\"col\">{{name}}</td>\n      <td scope=\"col\">{{url}}</td>\n      <td><a href=\"/database/feed/{{rowid}}\"> <button type=\"button\" class=\"btn btn-outline-danger\" fdprocessedid=\"d4r36\">Delete</button></a></td>\n    </tr>\n    {{/payload}}\n  </tbody>\n  \n</table>\n</div>\n<div class=\"col-md-6\">\n<form method=\"POST\" action=\"/database/feed\">\n<label for=\"name\" class=\"form-label mt-4\">NAME</label>\n<input type=\"text\" class=\"form-control\" id=\"name\" name=\"name\"  placeholder=\"Enter NAME\" required >\n\n<label for=\"url\" class=\"form-label mt-4\">URL</label>\n<input type=\"text\" class=\"form-control\" id=\"url;\" name=\"url\" placeholder=\"Enter URL\" required>\n<button type=\"submit\" class=\"btn btn-primary\" fdprocessedid=\"y9k7v6\">ADD</button>\n</form>\n</div>\n</div>\n</div>\n</body>\n</html>",
+        "output": "str",
+        "x": 620,
+        "y": 100,
+        "wires": [
+            [
+                "07b0141836499e46"
+            ]
+        ]
+    },
+    {
+        "id": "e4f4133a48bfa8b1",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid, * FROM feed",
+        "name": "",
+        "x": 400,
+        "y": 100,
+        "wires": [
+            [
+                "5a6d2861f0d54c10"
+            ]
+        ]
+    },
+    {
+        "id": "022aea7f97447bfd",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/details",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 520,
+        "wires": [
+            [
+                "3c48d6e7059c0fbb"
+            ]
+        ]
+    },
+    {
+        "id": "3c48d6e7059c0fbb",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid, * FROM details",
+        "name": "",
+        "x": 440,
+        "y": 520,
+        "wires": [
+            [
+                "8cf9117b08f0ae79"
+            ]
+        ]
+    },
+    {
+        "id": "8cf9117b08f0ae79",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/slate/bootstrap.min.css\" integrity=\"sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ\" crossorigin=\"anonymous\">\n    <title>firstnoderedsite</title>\n     <style>\n        body{\n     padding: 20px;}\n     .link{\n     padding :20px;\n     }\n     .container{\n     margin-top: 30px;\n     }\n     .container .table td{\n   background-color: #6B6E70;\n   }\n\n    \n   </style>\n   \n</head>\n<body>\n  <div class=\"container\">\n   <h1>CONTACT DETAIL</h1>\n\n    <div class=\"link\">\n    <a href=\"/database/feed/\"><button type=\"button\" class=\"btn btn-info\" fdprocessedid=\"dm257\">Feeds</button></a>  \n    <a href=\"/database/monitor/\"><button type=\"button\" class=\"btn btn-info\" fdprocessedid=\"dm257\">Latest Stories</button></a>  \n    <a href=\"/database/keyword/\"><button type=\"button\" class=\"btn btn-warning\" fdprocessedid=\"fzsmzg\">Keywords</button></a>  \n     </div>    \n      \n   <div class=\"row\">\n    <div class=\"col-md-6\">\n      <table class=\"table table-hover\">\n  <thead>\n    <tr>\n      <th scope=\"col\">NAME</th>\n      <th scope=\"col\">MAIL</th>\n      <th>DELETE</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#payload}}\n    <tr>\n      <td scope=\"col\">{{name}}</td>\n      <td scope=\"col\">{{mail}}</td>\n      <td> <a href=\"/database/details/delete/{{rowid}}\"> <button type=\"button\" class=\"btn btn-outline-danger\" fdprocessedid=\"d4r36\">Delete</button></a></td>\n    </tr>\n    \n    {{/payload}}\n  </tbody>\n  \n</table></div>  \n    <div class=\"col-md-6\">\n      <form method=\"POST\" action=\"/database/details\">\n <label for=\"name\" class=\"form-label mt-4\">NAME</label>\n<input type=\"text\" class=\"form-control\" id=\"name\" name=name  placeholder=\"Enter NAME\" required >\n\n<label for=\"mail\" class=\"form-label mt-4\">URL</label>\n<input type=\"text\" class=\"form-control\" id=\"mail;\" name=\"mail\" placeholder=\"Enter URL\" required>\n<button type=\"submit\" class=\"btn btn-primary\" fdprocessedid=\"y9k7v6\">ADD</button>\n</form></div>  \n  </div>   \n \n\n\n\n\n\n\n</div>\n\n</body>\n\n\n</html>",
+        "output": "str",
+        "x": 640,
+        "y": 520,
+        "wires": [
+            [
+                "b9643340f0cb0ba9"
+            ]
+        ]
+    },
+    {
+        "id": "b9643340f0cb0ba9",
+        "type": "http response",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 790,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "8b730c33fb2e131f",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 34",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 340,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "2c39f7f4f0e28bd0",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO details (name,mail) VALUES('{{payload.name}}' , '{{payload.mail}}')",
+        "output": "str",
+        "x": 360,
+        "y": 600,
+        "wires": [
+            [
+                "a373f757536daf64"
+            ]
+        ]
+    },
+    {
+        "id": "a373f757536daf64",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "SELECT * FROM details",
+        "name": "",
+        "x": 560,
+        "y": 600,
+        "wires": [
+            [
+                "3c48d6e7059c0fbb"
+            ]
+        ]
+    },
+    {
+        "id": "d7a2a6d2d57a9bc2",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/details/delete/:rowid",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 180,
+        "y": 720,
+        "wires": [
+            [
+                "db75a7e29a22990d",
+                "84809ea74b58005d"
+            ]
+        ]
+    },
+    {
+        "id": "db75a7e29a22990d",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 36",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "req.params",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 420,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "84809ea74b58005d",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "DELETE FROM details WHERE rowid=\"{{req.params.rowid}}\"",
+        "output": "str",
+        "x": 420,
+        "y": 720,
+        "wires": [
+            [
+                "b9b911344f072d94"
+            ]
+        ]
+    },
+    {
+        "id": "b9b911344f072d94",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "SELECT * FROM details",
+        "name": "",
+        "x": 620,
+        "y": 720,
+        "wires": [
+            [
+                "a373f757536daf64"
+            ]
+        ]
+    },
+    {
+        "id": "42991ac13d5e9515",
+        "type": "comment",
+        "z": "e8883f0bf475059e",
+        "name": "for contact detail table",
+        "info": "",
+        "x": 140,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "f6c984156d6e8d2a",
+        "type": "comment",
+        "z": "e8883f0bf475059e",
+        "name": "for keyword table",
+        "info": "",
+        "x": 120,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "5f180a72f73c61c7",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/keyword",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 920,
+        "wires": [
+            [
+                "d8b69422af1086bd"
+            ]
+        ]
+    },
+    {
+        "id": "10c17c44d7767fcd",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <link rel=\"stylesheet\" href=\"//cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/slate/bootstrap.min.css\" integrity=\"sha384-8iuq0iaMHpnH2vSyvZMSIqQuUnQA7QM+f6srIdlgBrTSEyd//AWNMyEaSF2yPzNQ\" crossorigin=\"anonymous\">\n    <title>firstnoderedsite</title>\n     <style>\n     body{\n     padding: 20px;}\n     .link{\n     padding :20px;\n     }\n     .container{\n     margin-top: 30px;\n     }\n\n     .container .table td{\n   background-color: #6B6E70;\n   }\n\n    \n   </style>\n   \n</head>\n<body>\n   \n    <div class=\"container\">\n    <h1>KEYWORDS</h1>\n    <div class=\"link\">\n    <a href=\"/database/details/\"><button type=\"button\" class=\"btn btn-info\" fdprocessedid=\"dm257\">Contact Details</button></a>  \n    <a href=\"/database/feed/\"><button type=\"button\" class=\"btn btn-warning\" fdprocessedid=\"fzsmzg\">Feeds</button></a>  \n    <a href=\"/database/monitor/\"><button type=\"button\" class=\"btn btn-success\" fdprocessedid=\"wm50t\">Latest Stories</button></a>  \n    </div>   \n    <div class=\"row\">\n    <div class=\"col-md-6\">\n      <table class=\"table table-hover\">\n  <thead>\n    <tr>\n      <th scope=\"col\">WORDS</th>\n      <th scope=\"col\">DELETE</th>\n    </tr>\n  </thead>\n  <tbody>\n    {{#payload}}\n    <tr>\n      <td scope=\"col\">{{word}}</td>\n      <td> <a href=\"/database/keyword/delete/{{rowid}}\"<button type=\"button\" class=\"btn btn-outline-danger\" fdprocessedid=\"d4r36\">Delete</button></td>\n    </tr>\n    \n    {{/payload}}\n  </tbody>\n  \n    </table>\n  </div>\n    <div class=\"col-md-6\">\n      <form method=\"POST\" action=\"/database/keyword\">\n<label for=\"word\" class=\"form-label mt-4\">KEYWORD</label>\n<input type=\"text\" class=\"form-control\" id=\"word\" name=\"word\"  placeholder=\"Enter Keyword\" required >\n\n<!--<label for=\"mail\" class=\"form-label mt-4\">URL</label>\n<input type=\"text\" class=\"form-control\" id=\"mail;\" name=\"mail\" placeholder=\"Enter URL\" required>\n-->\n<button type=\"submit\" class=\"btn btn-primary\" fdprocessedid=\"y9k7v6\">ADD</button>\n</form>\n    </div>\n\n    </div>\n \n\n\n\n</div>\n\n</body>\n\n\n</html>",
+        "output": "str",
+        "x": 700,
+        "y": 920,
+        "wires": [
+            [
+                "3f33df387e38bdf6"
+            ]
+        ]
+    },
+    {
+        "id": "3f33df387e38bdf6",
+        "type": "http response",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 910,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "775fccc8520d66b1",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/keyword",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 1020,
+        "wires": [
+            [
+                "636fa075cfe0266c",
+                "2684e9314783b4c4"
+            ]
+        ]
+    },
+    {
+        "id": "636fa075cfe0266c",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 37",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 360,
+        "y": 1060,
+        "wires": []
+    },
+    {
+        "id": "2684e9314783b4c4",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "INSERT ",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO keyword (word) VALUES (\"{{payload.word}}\")",
+        "output": "str",
+        "x": 360,
+        "y": 1020,
+        "wires": [
+            [
+                "a206f97ec3da3e64"
+            ]
+        ]
+    },
+    {
+        "id": "a206f97ec3da3e64",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 580,
+        "y": 1020,
+        "wires": [
+            [
+                "d8b69422af1086bd"
+            ]
+        ]
+    },
+    {
+        "id": "d8b69422af1086bd",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid, * FROM keyword ",
+        "name": "",
+        "x": 440,
+        "y": 920,
+        "wires": [
+            [
+                "10c17c44d7767fcd",
+                "23abc8681254f365"
+            ]
+        ]
+    },
+    {
+        "id": "23abc8681254f365",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 35",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "fc786af18ce24411",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/keyword/delete/:rowid",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 1120,
+        "wires": [
+            [
+                "e8859eef6f84abd7",
+                "d491d13a657fa57c"
+            ]
+        ]
+    },
+    {
+        "id": "e8859eef6f84abd7",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 38",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 1160,
+        "wires": []
+    },
+    {
+        "id": "d491d13a657fa57c",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "DELETE RECORD",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "DELETE FROM keyword WHERE rowid={{req.params.rowid}}",
+        "output": "str",
+        "x": 490,
+        "y": 1120,
+        "wires": [
+            [
+                "a206f97ec3da3e64"
+            ]
+        ]
+    },
+    {
+        "id": "da8c248513e664e2",
+        "type": "comment",
+        "z": "e8883f0bf475059e",
+        "name": "for feeds table ",
+        "info": "",
+        "x": 110,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "13bc4769c18c710c",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/details",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 600,
+        "wires": [
+            [
+                "8b730c33fb2e131f",
+                "2c39f7f4f0e28bd0"
+            ]
+        ]
+    },
+    {
+        "id": "0e6362457813dd2e",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/feed",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 200,
+        "wires": [
+            [
+                "f02cb8cf1159f360"
+            ]
+        ]
+    },
+    {
+        "id": "7404222013f0c18d",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "SELECT * FROM details",
+        "name": "",
+        "x": 620,
+        "y": 200,
+        "wires": [
+            [
+                "e4f4133a48bfa8b1"
+            ]
+        ]
+    },
+    {
+        "id": "f02cb8cf1159f360",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT INTO feed (name,url) VALUES ('{{payload.name}}','{{{payload.url}}}')",
+        "output": "str",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "7404222013f0c18d"
+            ]
+        ]
+    },
+    {
+        "id": "01aedcd7a09bfa67",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/feed/:rowid",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "091e59660abb2102",
+                "d0446c9f7110e1d3"
+            ]
+        ]
+    },
+    {
+        "id": "091e59660abb2102",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 39",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "d0446c9f7110e1d3",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "DELETE FROM feed WHERE rowid=\"{{ req.params.rowid}}\"",
+        "output": "str",
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "7404222013f0c18d"
+            ]
+        ]
+    },
+    {
+        "id": "dccc0b9528cadb26",
+        "type": "comment",
+        "z": "e8883f0bf475059e",
+        "name": "UI of the match table to show the data",
+        "info": "",
+        "x": 190,
+        "y": 1300,
+        "wires": []
+    },
+    {
+        "id": "10017eea32290372",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/monitor",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 140,
+        "y": 1340,
+        "wires": [
+            [
+                "ecef18baeef14897"
+            ]
+        ]
+    },
+    {
+        "id": "9556387252782738",
+        "type": "http response",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 1010,
+        "y": 1340,
+        "wires": []
+    },
+    {
+        "id": "565b8239c4ea2c4f",
+        "type": "inject",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 1780,
+        "wires": [
+            [
+                "d2af5a0753795085"
+            ]
+        ]
+    },
+    {
+        "id": "d2af5a0753795085",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "mydb": "",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM match",
+        "name": "",
+        "x": 350,
+        "y": 1780,
+        "wires": [
+            [
+                "41032cd9c30b4585",
+                "8d892454bcdfa4de"
+            ]
+        ]
+    },
+    {
+        "id": "41032cd9c30b4585",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 45",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "8d892454bcdfa4de",
+        "type": "split",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 590,
+        "y": 1780,
+        "wires": [
+            [
+                "93e97592f82e0365"
+            ]
+        ]
+    },
+    {
+        "id": "f1b7f96cbabef39b",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 46",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.title",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1880,
+        "wires": []
+    },
+    {
+        "id": "93e97592f82e0365",
+        "type": "function",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "function 6",
+        "func": "msg.payload.title= msg.payload.title.trim();\nmsg.payload.description=msg.payload.description.trim();\nmsg.payload.link=msg.payload.link.trim();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 780,
+        "y": 1820,
+        "wires": [
+            [
+                "f1b7f96cbabef39b",
+                "53548f4e142818ad",
+                "0ff74056deeda766"
+            ]
+        ]
+    },
+    {
+        "id": "0ff74056deeda766",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 47",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.link",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1840,
+        "wires": []
+    },
+    {
+        "id": "53548f4e142818ad",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "d": true,
+        "name": "debug 48",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.description",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1000,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "424874d9afb788dc",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "<!DOCTYPE html>\n<html>\n<head>\n    <meta charset=\"UTF8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    \n    <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/slate/bootstrap.min.css\">\n    <title>firstnoderedsite</title>\n    <style>\n \n      .topnav{\n      overflow:hidden;\n      background-color:#808080;\n      }\n\n    .topnav a{\n    float: left;\n    text-align: center;\n    padding: 15px;\n    text-decorat: none;\n    font-size: medium;\n    }\n    .topnav a:hover {\n      background-color: white;\n      color: black;\n       }\n\n   \n    h1{\n      text-align: center;\n      margin : 20px 20px;\n    }\n    \n   .topnav input[type=text]{\n    float:right;\n    padding:9px;\n    border: none;\n    margin:10px 0px;\n   }\n\n   .topnav input[type=submit]{\n    float: right;\n    padding:8px;\n    margin-top:10px;\n    margin-right:20px;\n   }\n  .searchbar{\n   display: flex;\n   flex-direction: row;\n   justify-content: right;\n  \n  }     \n  \n  .searchbar{\n  padding: 20px 10px;\n  }\n  .searchbar input[type=text]{\n   padding: 10px;\n   border-radius: 10px;\n   border:none;\n   }\n   .searchbar button{\n    padding: 10px;\n    border-radius: 10px;\n    font-size: medium;\n    border:none;\n    background-color: #A4A4A4;\n   }\n\n   .searchbar button:hover{\n    background-color: #6B6E70;\n         \n   }\n   .container .table td{\n   background-color: #6B6E70;\n   }\n\n\n  </style>\n   \n</head>\n<body>\n<nav>\n  <div class=\"topnav\">\n          <a class=\"nav-link\" href=\"/database/feed/\">Feeds</a>\n          <a class=\"nav-link\" href=\"/database/keyword/\">Keywords</a>\n          <a class=\"nav-link\" href=\"/database/details/\">Contact details</a>   \n          \n  </div>\n</nav>\n<div class=\"searchbar\">\n  <form method=\"post\" action=\"/database/monitor/\">\n    <input type=\"text\" id=\"search_word\" name=\"search_word\" placeholder=\"Search\">\n    <button type=\"submit\">search</button>\n    </form>\n</div>\n\n\n  <div class=\"container\">\n    <h1>LATEST STORIES</h1>\n      <table class=\"table table-hover\">\n       <thead>\n       <tr>\n       <th scope=\"col\">Title</th>\n       <th scope=\"col\">Description</th>\n       <th scope=\"col\">Link</th>\n       <th scope=\"col\">Sent</th>\n       </tr>\n       </thead>\n       <tbody>\n       {{#payload}}\n       <tr>\n       <td scope=\"col\">{{title}}}</td>\n       <td scope=\"col\">{{description}}}</td>\n       <td scope=\"col\">{{{link}}}</td> \n       <td scope=\"col\">{{sent}}</td>        \n       </tr>\n       {{/payload}}\n       </tbody>\n      </table>\n  </div>\n</body>\n</html>",
+        "output": "str",
+        "x": 820,
+        "y": 1340,
+        "wires": [
+            [
+                "9556387252782738"
+            ]
+        ]
+    },
+    {
+        "id": "f6ea8d1a60dee131",
+        "type": "http in",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "url": "/database/monitor/",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 150,
+        "y": 1440,
+        "wires": [
+            [
+                "ec7e07d76a39a0b2",
+                "ecef18baeef14897"
+            ]
+        ]
+    },
+    {
+        "id": "ec7e07d76a39a0b2",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 54",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 380,
+        "y": 1520,
+        "wires": []
+    },
+    {
+        "id": "ecef18baeef14897",
+        "type": "template",
+        "z": "e8883f0bf475059e",
+        "name": "",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "SELECT * FROM match WHERE description LIKE '%{{payload.search_word}}%' OR title LIKE '%{{payload.search_word}}%'\nORDER BY rowid DESC",
+        "output": "str",
+        "x": 380,
+        "y": 1340,
+        "wires": [
+            [
+                "ea4e3d548faca1d2"
+            ]
+        ]
+    },
+    {
+        "id": "ea4e3d548faca1d2",
+        "type": "sqlite",
+        "z": "e8883f0bf475059e",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "SELECT rowid,* FROM match\nORDER BY rowid DESC",
+        "name": "",
+        "x": 580,
+        "y": 1340,
+        "wires": [
+            [
+                "424874d9afb788dc",
+                "e33ba93abda9b0cf"
+            ]
+        ]
+    },
+    {
+        "id": "e33ba93abda9b0cf",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 44",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 820,
+        "y": 1440,
+        "wires": []
+    },
+    {
+        "id": "caf17060f4697d52",
+        "type": "debug",
+        "z": "e8883f0bf475059e",
+        "name": "debug 55",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 1240,
+        "wires": []
+    },
+    {
+        "id": "a02a3e29708d076d",
+        "type": "sqlitedb",
+        "db": "D:\\database\\db.sqlite",
+        "mode": "RWC"
+    }
+]

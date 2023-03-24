@@ -1,0 +1,1395 @@
+[
+    {
+        "id": "e92893f16c806225",
+        "type": "tab",
+        "label": "RSS reader",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "be639f2e467dbb2f",
+        "type": "feedparse",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "espn",
+        "url": "https://www.espn.com/espn/rss/news",
+        "interval": "10",
+        "ignorefirst": false,
+        "x": 130,
+        "y": 1840,
+        "wires": [
+            [
+                "30562c46ad5ee799",
+                "787c78b6b5502c01"
+            ]
+        ]
+    },
+    {
+        "id": "30562c46ad5ee799",
+        "type": "switch",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "property": "article.description",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "warriors",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "golden state",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "stephen curry",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "steve kerr",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "Thomas Bryant",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "cricket",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "ban vs ind",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "regex",
+                "v": "test match",
+                "vt": "str",
+                "case": true
+            },
+            {
+                "t": "else"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 9,
+        "x": 330,
+        "y": 1840,
+        "wires": [
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            [
+                "696dbdb510e1414c"
+            ],
+            []
+        ]
+    },
+    {
+        "id": "696dbdb510e1414c",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "article.title",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 550,
+        "y": 1840,
+        "wires": [
+            [
+                "58e81a0e55d3096d",
+                "4cb1559e99040fe2"
+            ]
+        ]
+    },
+    {
+        "id": "78224bdc31917d90",
+        "type": "inject",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "Node red email",
+        "payload": "hi manishn this is node red",
+        "payloadType": "str",
+        "x": 570,
+        "y": 1960,
+        "wires": [
+            [
+                "074efc9e9156c80d",
+                "7a87ac5034ab137e"
+            ]
+        ]
+    },
+    {
+        "id": "7a87ac5034ab137e",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 17",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 1940,
+        "wires": []
+    },
+    {
+        "id": "074efc9e9156c80d",
+        "type": "e-mail",
+        "z": "e92893f16c806225",
+        "d": true,
+        "server": "",
+        "port": "587",
+        "secure": false,
+        "tls": true,
+        "name": "77raimanish@gmail.com",
+        "dname": "email",
+        "x": 750,
+        "y": 2040,
+        "wires": []
+    },
+    {
+        "id": "4cb1559e99040fe2",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 15",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 1820,
+        "wires": []
+    },
+    {
+        "id": "58e81a0e55d3096d",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{article.description}}\n\nRead here: {{{article.link}}}",
+        "output": "str",
+        "x": 760,
+        "y": 1860,
+        "wires": [
+            [
+                "a8f05a2b128d1426"
+            ]
+        ]
+    },
+    {
+        "id": "787c78b6b5502c01",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 23",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 300,
+        "y": 1960,
+        "wires": []
+    },
+    {
+        "id": "a8f05a2b128d1426",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 24",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 760,
+        "y": 1900,
+        "wires": []
+    },
+    {
+        "id": "6fa3ff5bedced749",
+        "type": "inject",
+        "z": "e92893f16c806225",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "ba4ba7ad4778a234"
+            ]
+        ]
+    },
+    {
+        "id": "b5786edb8e122af7",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "Not in use anymore",
+        "info": "",
+        "x": 150,
+        "y": 1800,
+        "wires": []
+    },
+    {
+        "id": "57135f012f17e93c",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "*********** RSS Reader **************",
+        "info": "",
+        "x": 160,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "ba4ba7ad4778a234",
+        "type": "sqlite",
+        "z": "e92893f16c806225",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid , * FROM keyword  ",
+        "name": "",
+        "x": 380,
+        "y": 120,
+        "wires": [
+            [
+                "e71065dce0c01b9a",
+                "195057d7d03c4a65"
+            ]
+        ]
+    },
+    {
+        "id": "e75e975fbdecf273",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "reading keywords from the database",
+        "info": "",
+        "x": 420,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "e71065dce0c01b9a",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "name": "Keyword",
+        "rules": [
+            {
+                "t": "set",
+                "p": "keyword",
+                "pt": "msg",
+                "to": "$join(payload.word, \"|\")\t\t",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 120,
+        "wires": [
+            [
+                "50b6e295a683a9fe"
+            ]
+        ]
+    },
+    {
+        "id": "50b6e295a683a9fe",
+        "type": "sqlite",
+        "z": "e92893f16c806225",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "fixed",
+        "sql": "SELECT rowid,* FROM feed ",
+        "name": "",
+        "x": 860,
+        "y": 120,
+        "wires": [
+            [
+                "dd0e7b5e87246548"
+            ]
+        ]
+    },
+    {
+        "id": "dbc92062e088384f",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "reading urls from the feed table.",
+        "info": "",
+        "x": 890,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "dd0e7b5e87246548",
+        "type": "split",
+        "z": "e92893f16c806225",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 1090,
+        "y": 120,
+        "wires": [
+            [
+                "299c5d03efc3ac72",
+                "13a6c0e05503def8"
+            ]
+        ]
+    },
+    {
+        "id": "299c5d03efc3ac72",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "name": "read url",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.url",
+                "pt": "msg",
+                "to": "url",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 220,
+        "y": 260,
+        "wires": [
+            [
+                "5a5e20362b0aa973"
+            ]
+        ]
+    },
+    {
+        "id": "5dfc11857bf8b3ef",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "extracting the url from msg object and setting it to paylodurl property",
+        "info": "",
+        "x": 260,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "5a5e20362b0aa973",
+        "type": "http request",
+        "z": "e92893f16c806225",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 410,
+        "y": 260,
+        "wires": [
+            [
+                "680c5448b11cfb2e",
+                "e8f22b81f32f10f2"
+            ]
+        ]
+    },
+    {
+        "id": "680c5448b11cfb2e",
+        "type": "xml",
+        "z": "e92893f16c806225",
+        "name": "parsing xml ",
+        "property": "payload",
+        "attr": "",
+        "chr": "",
+        "x": 690,
+        "y": 260,
+        "wires": [
+            [
+                "afaa960253c0ed2c"
+            ]
+        ]
+    },
+    {
+        "id": "afaa960253c0ed2c",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "name": "",
+        "rules": [
+            {
+                "t": "move",
+                "p": "payload.rss.channel[0].item",
+                "pt": "msg",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1070,
+        "y": 260,
+        "wires": [
+            [
+                "326160b97ac8df8e"
+            ]
+        ]
+    },
+    {
+        "id": "d048bed7ca924dab",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "extracting items and storing it into payload property",
+        "info": "",
+        "x": 1110,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "326160b97ac8df8e",
+        "type": "split",
+        "z": "e92893f16c806225",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 230,
+        "y": 380,
+        "wires": [
+            [
+                "39d92861346bdffe",
+                "938f97c1ce5a0867"
+            ]
+        ]
+    },
+    {
+        "id": "038d5801b09a6088",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "splitting object present in array to individual object.",
+        "info": "",
+        "x": 370,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "39d92861346bdffe",
+        "type": "switch",
+        "z": "e92893f16c806225",
+        "name": "matching keywords in description",
+        "property": "payload.description[0]",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "regex",
+                "v": "keyword",
+                "vt": "msg",
+                "case": true
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 480,
+        "y": 380,
+        "wires": [
+            [
+                "ebb47eea6a6d7238",
+                "337b49964abadef6",
+                "db6e27870684026b",
+                "fd94198943bcc846",
+                "e9bf210bc513c15b"
+            ]
+        ]
+    },
+    {
+        "id": "47de399783f47d1d",
+        "type": "sqlite",
+        "z": "e92893f16c806225",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 1260,
+        "y": 380,
+        "wires": [
+            [
+                "5dacb0ce0c198537"
+            ]
+        ]
+    },
+    {
+        "id": "8d89a078f1ff1048",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "name": "INSERT Into match table",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "INSERT OR IGNORE INTO match VALUES (\n    '{{payload.title.0}}',\n    '{{payload.description.0}}',\n    '{{{payload.link.0}}}',\n    0)",
+        "output": "str",
+        "x": 970,
+        "y": 380,
+        "wires": [
+            [
+                "47de399783f47d1d"
+            ]
+        ]
+    },
+    {
+        "id": "ebb47eea6a6d7238",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "payload.description.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.description.0",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 460,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "337b49964abadef6",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "payload.title.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.title.0",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "db6e27870684026b",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "payload.link.0",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload.link.0",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 440,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "5dacb0ce0c198537",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 40",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1460,
+        "y": 380,
+        "wires": []
+    },
+    {
+        "id": "1b3a2c80e3049f9e",
+        "type": "inject",
+        "z": "e92893f16c806225",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT rowid  , * FROM match WHERE sent=0 ",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 740,
+        "wires": [
+            [
+                "a7910d753c37cba7"
+            ]
+        ]
+    },
+    {
+        "id": "26cbc2490434bf72",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "For sending Notifications......",
+        "info": "",
+        "x": 140,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "a7910d753c37cba7",
+        "type": "sqlite",
+        "z": "e92893f16c806225",
+        "mydb": "a02a3e29708d076d",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 360,
+        "y": 740,
+        "wires": [
+            [
+                "f67fdaf30396c8e4",
+                "e51e6ba5dad2ea31",
+                "e8ee48e1e94d4f94"
+            ]
+        ]
+    },
+    {
+        "id": "f67fdaf30396c8e4",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "Data from match table",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 180,
+        "y": 840,
+        "wires": []
+    },
+    {
+        "id": "e51e6ba5dad2ea31",
+        "type": "split",
+        "z": "e92893f16c806225",
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 670,
+        "y": 740,
+        "wires": [
+            [
+                "7d1e9f140dbd07a3",
+                "fa229d548c8e734b"
+            ]
+        ]
+    },
+    {
+        "id": "b4975f03c456c3c1",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "spliting the array contating objects into individual objects",
+        "info": "",
+        "x": 720,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "7d1e9f140dbd07a3",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "Data after split",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 740,
+        "wires": []
+    },
+    {
+        "id": "d65add8ae725e093",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "setting the value of  description to msg.payload",
+        "info": "",
+        "x": 490,
+        "y": 780,
+        "wires": []
+    },
+    {
+        "id": "557ceab8cb4a943b",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "name": "Not Empty ",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{#payload}}\n\n{{topic}}\n{{description}}}\nRead here: {{{link}}}\n\n{{/payload}}",
+        "output": "str",
+        "x": 930,
+        "y": 880,
+        "wires": [
+            [
+                "7658c5b27fc51c0f",
+                "d3456498be9e5141"
+            ]
+        ]
+    },
+    {
+        "id": "e8ee48e1e94d4f94",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.title",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 450,
+        "y": 840,
+        "wires": [
+            [
+                "dd5af8db5a06408f",
+                "5fdb6228788d7d24"
+            ]
+        ]
+    },
+    {
+        "id": "7658c5b27fc51c0f",
+        "type": "e-mail",
+        "z": "e92893f16c806225",
+        "server": "smtp-mail.outlook.com",
+        "port": "587",
+        "secure": false,
+        "tls": true,
+        "name": "131raimanish@gmail.com",
+        "dname": "",
+        "x": 1010,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "fa229d548c8e734b",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "name": "UPDATE match table",
+        "field": "topic",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "UPDATE match \nSET sent=1\nwhere rowid = {{payload.rowid}}",
+        "output": "str",
+        "x": 920,
+        "y": 560,
+        "wires": [
+            [
+                "47de399783f47d1d"
+            ]
+        ]
+    },
+    {
+        "id": "12f627665702e7d8",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "updating the table match after sending the notification",
+        "info": "",
+        "x": 1020,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "e8f22b81f32f10f2",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "http request response",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "c5bf5508a14c9de9",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "we can also read this email from the database from the contact details table",
+        "info": "",
+        "x": 1020,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "195057d7d03c4a65",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 42",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 640,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "13a6c0e05503def8",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 43",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1120,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "fd94198943bcc846",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 49",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "e9bf210bc513c15b",
+        "type": "function",
+        "z": "e92893f16c806225",
+        "name": "function 7",
+        "func": "msg.payload.title[0]= msg.payload.title[0].trim();\nmsg.payload.description[0]=msg.payload.description[0].trim();\nmsg.payload.link[0]=msg.payload.link[0].trim();\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 740,
+        "y": 420,
+        "wires": [
+            [
+                "3ceabf75ac6600c0",
+                "8d89a078f1ff1048"
+            ]
+        ]
+    },
+    {
+        "id": "3ceabf75ac6600c0",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 50",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 940,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "63d48a23e121ac38",
+        "type": "inject",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "SELECT rowid  , * FROM match",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 1460,
+        "wires": [
+            [
+                "c9925ec8d3e24597"
+            ]
+        ]
+    },
+    {
+        "id": "c9925ec8d3e24597",
+        "type": "sqlite",
+        "z": "e92893f16c806225",
+        "d": true,
+        "mydb": "",
+        "sqlquery": "msg.topic",
+        "sql": "",
+        "name": "",
+        "x": 310,
+        "y": 1460,
+        "wires": [
+            [
+                "820a71350fcd0263",
+                "74f38de1e39c1823",
+                "12db9349b4982785"
+            ]
+        ]
+    },
+    {
+        "id": "820a71350fcd0263",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "Data from match table",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 180,
+        "y": 1560,
+        "wires": []
+    },
+    {
+        "id": "74f38de1e39c1823",
+        "type": "split",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "splt": "\\n",
+        "spltType": "str",
+        "arraySplt": 1,
+        "arraySpltType": "len",
+        "stream": false,
+        "addname": "",
+        "x": 610,
+        "y": 1460,
+        "wires": [
+            [
+                "9f8b8bf54f91f38d"
+            ]
+        ]
+    },
+    {
+        "id": "9f8b8bf54f91f38d",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "Data after split",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 780,
+        "y": 1460,
+        "wires": []
+    },
+    {
+        "id": "dc47297406abc38b",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "setting the value of  description to msg.payload",
+        "info": "",
+        "x": 810,
+        "y": 1500,
+        "wires": []
+    },
+    {
+        "id": "277cdd1d645b8dc6",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "{{#payload}}\n\n{{topic}}\n{{description}}}\nRead here: {{{link}}}\n\n{{/payload}}",
+        "output": "str",
+        "x": 720,
+        "y": 1580,
+        "wires": [
+            [
+                "335e30d2cf63f1ed",
+                "ce567f7b9aef7ced"
+            ]
+        ]
+    },
+    {
+        "id": "335e30d2cf63f1ed",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "debug 51",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 1700,
+        "wires": []
+    },
+    {
+        "id": "12db9349b4982785",
+        "type": "change",
+        "z": "e92893f16c806225",
+        "d": true,
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "topic",
+                "pt": "msg",
+                "to": "payload.title",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 530,
+        "y": 1580,
+        "wires": [
+            [
+                "277cdd1d645b8dc6"
+            ]
+        ]
+    },
+    {
+        "id": "ce567f7b9aef7ced",
+        "type": "e-mail",
+        "z": "e92893f16c806225",
+        "d": true,
+        "server": "smtp-mail.outlook.com",
+        "port": "587",
+        "secure": false,
+        "tls": true,
+        "name": "131raimanish@gmail.com",
+        "dname": "",
+        "x": 990,
+        "y": 1760,
+        "wires": []
+    },
+    {
+        "id": "99ec0ff3d4f99491",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "we can also read this email from the database from the contact details table",
+        "info": "",
+        "x": 1020,
+        "y": 1720,
+        "wires": []
+    },
+    {
+        "id": "d3456498be9e5141",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 41",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 880,
+        "wires": []
+    },
+    {
+        "id": "dd5af8db5a06408f",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 52",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 920,
+        "wires": []
+    },
+    {
+        "id": "5fdb6228788d7d24",
+        "type": "switch",
+        "z": "e92893f16c806225",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "empty"
+            },
+            {
+                "t": "nempty"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 630,
+        "y": 840,
+        "wires": [
+            [
+                "35c5a52e46867ad1"
+            ],
+            [
+                "557ceab8cb4a943b"
+            ]
+        ]
+    },
+    {
+        "id": "35c5a52e46867ad1",
+        "type": "template",
+        "z": "e92893f16c806225",
+        "name": "Empty Message.",
+        "field": "payload",
+        "fieldType": "msg",
+        "format": "handlebars",
+        "syntax": "mustache",
+        "template": "No new update......",
+        "output": "str",
+        "x": 950,
+        "y": 820,
+        "wires": [
+            [
+                "7658c5b27fc51c0f",
+                "2b1953f358208b84"
+            ]
+        ]
+    },
+    {
+        "id": "2b1953f358208b84",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 53",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1160,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "d454a1235f85fcba",
+        "type": "comment",
+        "z": "e92893f16c806225",
+        "name": "For testing if flow for sending notification is working or not...",
+        "info": "",
+        "x": 250,
+        "y": 1420,
+        "wires": []
+    },
+    {
+        "id": "938f97c1ce5a0867",
+        "type": "debug",
+        "z": "e92893f16c806225",
+        "name": "debug 85",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 260,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "a02a3e29708d076d",
+        "type": "sqlitedb",
+        "db": "D:\\database\\db.sqlite",
+        "mode": "RWC"
+    }
+]
