@@ -1,5 +1,4 @@
 # Rss-feed-reader
-Rss Feed Reader (often called Really Simple Syndication) Using Node-red
 What is RSS? 
 RSS (often called Really Simple Syndication) is a web feed format used to publish frequently updated works, such as blog entries, news headlines, latest properties, car listings, etc in a standardized format.
 An RSS feed (or “channel”) includes summary description, link for the website,features, etc.
